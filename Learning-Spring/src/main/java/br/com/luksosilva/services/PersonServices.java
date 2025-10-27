@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 
-@Service("personServicesV1")
+@Service
 public class PersonServices {
 
     private Logger logger = LoggerFactory.getLogger(PersonServices.class.getName());

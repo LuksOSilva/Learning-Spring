@@ -1,16 +1,18 @@
 package br.com.luksosilva.controllers;
 
 import br.com.luksosilva.data.dto.PersonDTO;
+import br.com.luksosilva.model.Person;
 import br.com.luksosilva.services.PersonServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
-@RestController("personControllerV1")
-@RequestMapping("/person/v1")
+@RestController
+@RequestMapping("/api/person/v1")
 public class PersonController {
 
     @Autowired
@@ -31,7 +33,17 @@ public class PersonController {
     public PersonDTO findById(
             @PathVariable("id") Long id
     ) {
-        return service.findById(id);
+        PersonDTO person = service.findById(id);
+
+        person.setBirthday(new Date());
+
+        if (person.getGender().equals("Male")) {
+            person.setPhoneNumber("(12) 3456-7890");
+            person.setLastName(null);
+            person.setSensitiveData("Foo Bar");
+        }
+
+        return person;
     }
 
     @PostMapping(
